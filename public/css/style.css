@@ -52,10 +52,6 @@ body {
 .content {
     background: #EEEEEE; 
     margin-left: 19px;
-}
-
-.content:nth-child(2) {
-    margin-top: 27px;
     margin-bottom: 27px;
 }
 
@@ -75,7 +71,7 @@ body {
     .content-options::-webkit-scrollbar {
       display: none;
     }
-  }
+}
 
 .option-box {
     width: 162px;
