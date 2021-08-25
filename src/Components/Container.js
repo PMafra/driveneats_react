@@ -23,19 +23,15 @@ export default function Container () {
 
     return (
         <div class="container">
-
             {categories.map(category => 
                 <div class="content">
-
                     <div class="top-content-text">
                         <p class="font-weight-400 font-righteous">{category.categoryTitle}</p>
                     </div>
-
                     <div class="content-options">
-
                         {dishes.map(dish => 
                             dish.type === category.categoryType ? (
-                                <div class={`option-box ${dish.type}`} onclick="mainCourse(this)">
+                                <div class={`option-box ${dish.type}`} onClick="{() => selection(this, dish.type)}">
                                     <img src={`imagens/${dish.srcId}.jpg`} />
                                     <div class="menu">
                                         <p class="name">{dish.name}</p>
@@ -46,11 +42,9 @@ export default function Container () {
                             )
                             : (<></>)
                         )}
-
                     </div>
                 </div>
             )}
-
         </div>
     );
 }
