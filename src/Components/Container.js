@@ -1,3 +1,5 @@
+import React from "react";
+
 export default function Container () {
 
     const categories = [
@@ -21,17 +23,24 @@ export default function Container () {
         {type: categories[2].categoryType, srcId: "pudim", name: "Pudim fit", description: "Pudim fit feito sem açucar", price: "10,00"},
     ]
 
+    const [selected, SetSelected] = React.useState();
+
+    function selection (element, type) {
+        SetSelected(String(element) + " " + type);
+    }
+    console.log(selected)
+
     return (
         <div class="container">
-            {categories.map(category => 
-                <div class="content">
+            {categories.map((category, catIndex) => 
+                <div class="content" key={`c${catIndex}`}>
                     <div class="top-content-text">
                         <p class="font-weight-400 font-righteous">{category.categoryTitle}</p>
                     </div>
                     <div class="content-options">
-                        {dishes.map(dish => 
+                        {dishes.map((dish, dishIndex) => 
                             dish.type === category.categoryType ? (
-                                <div class={`option-box ${dish.type}`} onClick="{() => selection(this, dish.type)}">
+                                <div class={`option-box ${dish.type}`} key={`d${dishIndex}`} onClick={() => selection(dishIndex, dish.type)}>
                                     <img src={`imagens/${dish.srcId}.jpg`} />
                                     <div class="menu">
                                         <p class="name">{dish.name}</p>
