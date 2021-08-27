@@ -24,11 +24,32 @@ export default function Container () {
     ]
 
     const [selected, SetSelected] = React.useState();
+    const [greenBorder, setGreenBorder] = React.useState("");
 
-    function selection (element, type) {
-        SetSelected(String(element) + " " + type);
+    const objectOfIds = {};
+
+    for (let i = 0; i < dishes.length; i++) {
+        objectOfIds[i] = "oi";
     }
-    console.log(selected)
+
+    const [checkList, setCheckList] = React.useState(objectOfIds);
+
+    function selection (id, type, name) {
+        SetSelected(id);
+
+        if (checkList[id] === "oi") {
+
+            setGreenBorder("green-border");
+            checkList[id] = "green-border";
+
+        } else {
+            
+            setGreenBorder("");
+            checkList[id] = "oi";
+        }
+
+        console.log(type + " " + String(id) + " " + name);
+    }
 
     return (
         <div class="container">
@@ -40,7 +61,7 @@ export default function Container () {
                     <div class="content-options">
                         {dishes.map((dish, dishIndex) => 
                             dish.type === category.categoryType ? (
-                                <div class={`option-box ${dish.type}`} key={`d${dishIndex}`} onClick={() => selection(dishIndex, dish.type)}>
+                                <div class={`option-box ${dish.type} ${checkList[dishIndex]}`} key={`d${dishIndex}`} onClick={() => selection(dishIndex, dish.type, dish.name)}>
                                     <img src={`imagens/${dish.srcId}.jpg`} />
                                     <div class="menu">
                                         <p class="name">{dish.name}</p>
