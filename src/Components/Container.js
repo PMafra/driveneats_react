@@ -23,31 +23,23 @@ export default function Container () {
         {type: categories[2].categoryType, srcId: "pudim", name: "Pudim fit", description: "Pudim fit feito sem açucar", price: "10,00"},
     ]
 
-    const [selected, SetSelected] = React.useState();
-    const [greenBorder, setGreenBorder] = React.useState("");
-
     const objectOfIds = {};
-
     for (let i = 0; i < dishes.length; i++) {
-        objectOfIds[i] = "oi";
+        objectOfIds[i] = "";
     }
 
     const [checkList, setCheckList] = React.useState(objectOfIds);
 
     function selection (id, type, name) {
-        SetSelected(id);
+        let newCheckList = {...checkList};
 
-        if (checkList[id] === "oi") {
-
-            setGreenBorder("green-border");
-            checkList[id] = "green-border";
-
+        if (checkList[id] === "") {
+            newCheckList[id] = "green-border";
+            setCheckList(newCheckList);
         } else {
-            
-            setGreenBorder("");
-            checkList[id] = "oi";
+            newCheckList[id] = "";
+            setCheckList(newCheckList);
         }
-
         console.log(type + " " + String(id) + " " + name);
     }
 
