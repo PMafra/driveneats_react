@@ -39,7 +39,7 @@ export default function Container () {
 
     const [hiding, setHiding] = React.useState(objectOfIds);
 
-    function selection (id, type, name) {
+    function selection (id, type, name, down) {
         let newCheckList = {...checkList};
         let newHiding = {...hiding};
         console.log(newHiding);
@@ -53,33 +53,41 @@ export default function Container () {
 
             newHiding[id] = "re-vanish";
             setHiding(newHiding);
-
-            if (quantity === 0) {
-                SetQuantity(1);
-            }
             
-
+            quantity[id] = 1;
 
         } else {
-            newCheckList[id] = "";
-            setCheckList(newCheckList);
-
-            //newHiding[id] = "";
-            //setHiding(newHiding);
-
+            if (quantity[id] === 1 && changeQuantity.called === true) {
+                newCheckList[id] = "";
+                setCheckList(newCheckList);
+                newHiding[id] = "";
+                setHiding(newHiding);
+            }
         }
         console.log(type + " " + String(id) + " " + name);
     }
 
-    const [quantity, SetQuantity] = React.useState(0);
+    const [quantity, SetQuantity] = React.useState(objectOfIds);
 
-    function changeQuantity (upOrDown) {
+    function changeQuantity (upOrDown, id) {
+        let newQuantity = {...quantity};
 
         if (upOrDown === "up") {
-            SetQuantity(quantity + 1);
+            if (newQuantity[id] === "") {
+                newQuantity[id] = 1;
+            }
+            newQuantity[id] += 1;
+            SetQuantity(newQuantity);
         }
         if (upOrDown === "down") {
-            SetQuantity(quantity - 1);
+            changeQuantity.called = true;
+            if (newQuantity[id] === "") {
+            newQuantity[id] = 1;
+            }
+            if (quantity[id] > 1) {
+                newQuantity[id] -= 1;
+                SetQuantity(newQuantity);
+            }
         }
     }
 
@@ -98,7 +106,7 @@ export default function Container () {
                                     <div class="menu">
                                         <p class="name">{dish.name}</p>
                                         <p class="description">{dish.description}</p>
-                                        <p class="price">{dish.price}<span class={`vanish ${hiding[dishIndex]}`}><ion-icon name="add-circle" class="check green" onClick={() => changeQuantity("up")}></ion-icon>{quantity}<ion-icon name="remove-circle" class="check red" onClick={() => changeQuantity("down")}></ion-icon></span></p>
+                                        <p class="price">{dish.price}<span class={`vanish ${hiding[dishIndex]}`}><ion-icon name="add-circle" class="check green" onClick={() => changeQuantity("up", dishIndex)}></ion-icon>{quantity[dishIndex]}<ion-icon name="remove-circle" class="check red" onClick={() => changeQuantity("down", dishIndex)}></ion-icon></span></p>
                                     </div>
                                 </div>
                             )
@@ -110,6 +118,48 @@ export default function Container () {
         </div>
     );
 }
+
+
+    // const [quantity, SetQuantity] = React.useState(1);
+
+    // function changeQuantity (upOrDown, id) {
+
+    //     if (upOrDown === "up") {
+
+    //         SetQuantity(quantity + 1);
+    //     }
+    //     if (upOrDown === "down") {
+
+    //         SetQuantity(quantity - 1);
+    //     }
+    // }
+
+    // const listOfQts = [];
+    // for (let i = 0; i < dishes.length; i++) {
+    //     listOfQts.push(0);
+    //     console.log(listOfQts);
+    // }
+
+    // const [quantity, SetQuantity] = React.useState(listOfQts);
+
+    // function changeQuantity (upOrDown, id) {
+    //     let newQuantity = {...quantity};
+
+    //     if (upOrDown === "up") {
+    //         // if (newQuantity[id] === ) {
+    //         //     newQuantity[id] = "0";
+    //         // }
+    //         newQuantity[id] += 1;
+    //         SetQuantity(newQuantity);
+    //     }
+    //     if (upOrDown === "down") {
+    //         // if (newQuantity[id] === "") {
+    //         //     newQuantity[id] = "0";
+    //         // }
+    //         newQuantity[id] -= 1;
+    //         SetQuantity(newQuantity);
+    //     }
+    // }
 
 
 {/* <div class="content">
