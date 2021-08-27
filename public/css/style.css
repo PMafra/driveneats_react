@@ -127,7 +127,24 @@ body {
     line-height: 28px;
     display: flex;
     justify-content: space-between;
+    align-items: center;
     width: 166px;
+}
+
+.price span {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+    background-color: rgb(243, 207, 176);
+}
+
+.vanish {
+    opacity: 0;
+}
+
+.re-vanish {
+    opacity: 1;
 }
 
 .bottom-bar {
@@ -175,8 +192,12 @@ body {
     border: 5px solid #32B72F;
 }
 
-.green-icon {
+.green {
     color: #32B72F;
+}
+
+.red {
+    color: red;
 }
 
 .confirmation-box {

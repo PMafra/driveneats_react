@@ -37,17 +37,50 @@ export default function Container () {
 
     const [checkList, setCheckList] = React.useState(objectOfIds);
 
+    const [hiding, setHiding] = React.useState(objectOfIds);
+
     function selection (id, type, name) {
         let newCheckList = {...checkList};
+        let newHiding = {...hiding};
+        console.log(newHiding);
 
         if (checkList[id] === "") {
+
+            console.log(checkList);
+
             newCheckList[id] = "green-border";
             setCheckList(newCheckList);
+
+            newHiding[id] = "re-vanish";
+            setHiding(newHiding);
+
+            if (quantity === 0) {
+                SetQuantity(1);
+            }
+            
+
+
         } else {
             newCheckList[id] = "";
             setCheckList(newCheckList);
+
+            //newHiding[id] = "";
+            //setHiding(newHiding);
+
         }
         console.log(type + " " + String(id) + " " + name);
+    }
+
+    const [quantity, SetQuantity] = React.useState(0);
+
+    function changeQuantity (upOrDown) {
+
+        if (upOrDown === "up") {
+            SetQuantity(quantity + 1);
+        }
+        if (upOrDown === "down") {
+            SetQuantity(quantity - 1);
+        }
     }
 
     return (
@@ -65,7 +98,7 @@ export default function Container () {
                                     <div class="menu">
                                         <p class="name">{dish.name}</p>
                                         <p class="description">{dish.description}</p>
-                                        <p class="price">{dish.price}<span><ion-icon name="checkmark-circle" class="check"></ion-icon></span></p>
+                                        <p class="price">{dish.price}<span class={`vanish ${hiding[dishIndex]}`}><ion-icon name="add-circle" class="check green" onClick={() => changeQuantity("up")}></ion-icon>{quantity}<ion-icon name="remove-circle" class="check red" onClick={() => changeQuantity("down")}></ion-icon></span></p>
                                     </div>
                                 </div>
                             )
