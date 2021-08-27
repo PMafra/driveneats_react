@@ -28,6 +28,7 @@ export default function Container () {
         {type: categoriesTypes.deserts, srcId: "torta", name: "Torta de limão", description: "Fatia de deliciosa torta de limão", price: "12,80"},
         {type: categoriesTypes.deserts, srcId: "pudim", name: "Pudim fit", description: "Pudim fit feito sem açucar", price: "10,00"},
         {type: categoriesTypes.teste, srcId: "pudim", name: "Deu certo!", description: "Pudim fit feito sem açucar", price: "100000,00"},
+        {type: categoriesTypes.teste, srcId: "panqueca", name: "Deu certo demais!", description: "Panquecas feitas com whey, mel e morangos", price: "150000,00"}
     ]
 
     const objectOfIds = {};
@@ -39,14 +40,18 @@ export default function Container () {
 
     const [hiding, setHiding] = React.useState(objectOfIds);
 
+    const [counter, setCounter] = React.useState([]);
+
+    function remove(array, element) {
+        const index = array.indexOf(element);
+        array.splice(index, 1);
+      }
+
     function selection (id, type, name, down) {
         let newCheckList = {...checkList};
         let newHiding = {...hiding};
-        console.log(newHiding);
 
         if (checkList[id] === "") {
-
-            console.log(checkList);
 
             newCheckList[id] = "green-border";
             setCheckList(newCheckList);
@@ -56,6 +61,12 @@ export default function Container () {
             
             quantity[id] = 1;
 
+            if (!counter.includes(type)) {
+                setCounter([...counter, type]);
+                console.log(counter);
+            }
+            
+
         } else {
             if (quantity[id] === 1 && changeQuantity.called === true) {
                 newCheckList[id] = "";
@@ -63,7 +74,11 @@ export default function Container () {
                 newHiding[id] = "";
                 setHiding(newHiding);
             }
+
+            setCounter(remove(counter, type));
+            console.log(counter);
         }
+
         console.log(type + " " + String(id) + " " + name);
     }
 
@@ -90,6 +105,26 @@ export default function Container () {
             }
         }
     }
+
+
+
+    // let categoriesTypesSelected = {};
+    // for (let i = 0; i < categories.length; i++) {
+    //     categoriesTypesSelected[categories[i].categoryType] = "unmarked";
+    // }
+    // console.log(categoriesTypesSelected);
+
+    // const [catSelected, setCatSelected] = React.useState(categoriesTypesSelected);
+    // console.log(catSelected);
+
+    // function confirmation (catIndex) {
+    //     let newCatSelected = {...catSelected};
+
+    //     if (catSelected[catIndex] === "unmarked") {
+    //         newCatSelected[catIndex] = "marked";
+    //         setCatSelected(newCatSelected);
+    //     }
+    // }
 
     return (
         <div class="container">
