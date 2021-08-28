@@ -175,6 +175,17 @@ body {
     cursor: pointer;
 }
 
+.bottom-bar-button p {
+    max-width: 400px;
+}
+
+@media (max-width: 440px) {
+    .bottom-bar-button p {
+        font-size: 15px;
+        max-width: 250px;
+    }
+}
+
 .green-button {
     background-color: #32B72F;
 }
