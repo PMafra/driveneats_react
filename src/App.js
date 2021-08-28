@@ -2,8 +2,14 @@ import React from "react";
 import TopBar from "./Components/TopBar";
 import Container from "./Components/Container";
 import BottomBar from "./Components/BottomBar";
-import ConfirmationBox from "./Components/ConfirmationBox";
+import ConfirmationPage from "./Components/ConfirmationBox";
 import "./style.css";
+import {
+    BrowserRouter as Router,
+    Switch,
+    Route,
+    Link
+  } from "react-router-dom";
 
 export default function App ({markedCats}) {
 
@@ -18,7 +24,14 @@ export default function App ({markedCats}) {
             <TopBar />
             <Container childToParent={childToParent} markedCats={markedCats}/>
             <BottomBar changeColor={data}/>
-            <ConfirmationBox />
+            <Router>
+                <Link to="/confirmation-page">Confirm</Link>
+            </Router>
+            <Switch>
+                <Route path="/confirmation-page">
+                    <ConfirmationPage />
+                </Route>
+            </Switch>
         </>
     );
 }

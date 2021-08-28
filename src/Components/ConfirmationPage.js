@@ -1,4 +1,4 @@
-export default function ConfirmationBox () {
+export default function ConfirmationPage () {
     return(
         <>
             <div class="confirmation-box">
