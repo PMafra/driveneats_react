@@ -26,7 +26,7 @@ export default function ConfirmationPage () {
 
             </div>
 
-            <div class="transparent-background"></div>
+            <div class="transparent-background appearback"></div>
         </>
     );
 }

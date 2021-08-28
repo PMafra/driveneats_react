@@ -1,3 +1,12 @@
+import React from "react";
+import ConfirmationPage from "./ConfirmationPage";
+import {
+    BrowserRouter as Router,
+    Switch,
+    Route,
+    Link
+  } from "react-router-dom";
+
 export default function BottomBar ({changeColor}) {
 
     let buttonMessage = "";
@@ -9,9 +18,17 @@ export default function BottomBar ({changeColor}) {
 
     return (
         <div class="bottom-bar">
-            <button class={`bottom-bar-button ${changeColor}`} onclick="confirm()">
-                <p class="font-weight-400">{buttonMessage}</p>
-            </button>
+            <Router>
+                <Link to="/confirmation-page" class={`bottom-bar-button ${changeColor}`} onclick="confirm()">
+                    <p class="font-weight-400">{buttonMessage}</p>
+                </Link>
+                <Switch>
+                    <Route path="/confirmation-page">
+                        <ConfirmationPage />
+                    </Route>
+                </Switch>
+            </Router>
         </div>
+        
     );
 }

@@ -173,10 +173,12 @@ body {
     margin: 15px 25px;
     border: none;
     cursor: pointer;
+    text-decoration: none;
 }
 
 .bottom-bar-button p {
     max-width: 400px;
+    text-align: center;
 }
 
 @media (max-width: 440px) {
@@ -227,12 +229,12 @@ body {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    visibility: hidden;
+    /* visibility: hidden; */
 }
 
-.appearbox {
+/* .appearbox {
     visibility: visible;
-}
+} */
 
 .transparent-background {
     position: fixed;
@@ -242,12 +244,12 @@ body {
     width: 100vw;
     height: 100vh;
     background-color: rgba(255, 255, 255, 0.8);
-    display: none;
+    /* display: none; */
 }
 
-.appearback {
+/* .appearback {
     display: initial;
-}
+} */
 
 .confirm {
     margin: 21px 0px 28px 0px;
