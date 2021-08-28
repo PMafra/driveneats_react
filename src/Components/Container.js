@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function Container ({childToParent}) {
+export default function Container ({childToParent, markedCats}) {
 
     const categories = [
         {categoryTitle: "Primeiro, seu prato", categoryType: "main-course"},
@@ -39,19 +39,12 @@ export default function Container ({childToParent}) {
     const [checkList, setCheckList] = React.useState(objectOfIds);
 
     const [hiding, setHiding] = React.useState(objectOfIds);
-
-    const [counter, setCounter] = React.useState([]);
-
-    function selection (id, type, name, down) {
+    
+    function selection (id, type, catId) {
         let newCheckList = {...checkList};
         let newHiding = {...hiding};
 
         if (checkList[id] === "") {
-
-            if (!counter.includes(type)) {
-                setCounter([...counter, type]);
-                console.log(counter);
-            }
         
             newCheckList[id] = "green-border";
             setCheckList(newCheckList);
@@ -61,6 +54,10 @@ export default function Container ({childToParent}) {
             
             quantity[id] = 1;
 
+            markedCats.push(catId);
+            console.log(markedCats);
+
+
         } else {
             if (quantity[id] === 1 && changeQuantity.called === true) {
                 newCheckList[id] = "";
@@ -68,12 +65,11 @@ export default function Container ({childToParent}) {
                 newHiding[id] = "";
                 setHiding(newHiding);
 
-                setCounter(counter.filter(value => value !== type));
-                console.log(counter);
+                markedCats.splice(markedCats.findIndex(a => a === catId), 1);
+                console.log(markedCats);
             }
         }
 
-        console.log(type + " " + String(id) + " " + name);
         testEnd();
     }
 
@@ -106,14 +102,19 @@ export default function Container ({childToParent}) {
     let greenButton;
 
     function testEnd () {
-        if (counter.length === categories.length - 1) {
+        let diffMarkedCatsLength = markedCats.filter(function(val, i, arr) { 
+            return arr.indexOf(val) === i;
+        }).length;
+        console.log(diffMarkedCatsLength);
+
+        if (diffMarkedCatsLength === categories.length) {
+            console.log(markedCats);
             greenButton = "green-button";
             childToParent(greenButton);
         } else {
             greenButton = "";
             childToParent(greenButton);
         }
-
     }
 
     return (
@@ -126,7 +127,7 @@ export default function Container ({childToParent}) {
                     <div class="content-options">
                         {dishes.map((dish, dishIndex) => 
                             dish.type === category.categoryType ? (
-                                <div class={`option-box ${dish.type} ${checkList[dishIndex]}`} key={`d${dishIndex}`} onClick={() => selection(dishIndex, dish.type, dish.name)}>
+                                <div class={`option-box ${dish.type} ${checkList[dishIndex]}`} key={`d${dishIndex}`} onClick={() => selection(dishIndex, dish.type, catIndex)}>
                                     <img src={`imagens/${dish.srcId}.jpg`} />
                                     <div class="menu">
                                         <p class="name">{dish.name}</p>
