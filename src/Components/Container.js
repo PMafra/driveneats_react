@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function Container () {
+export default function Container ({childToParent}) {
 
     const categories = [
         {categoryTitle: "Primeiro, seu prato", categoryType: "main-course"},
@@ -42,17 +42,17 @@ export default function Container () {
 
     const [counter, setCounter] = React.useState([]);
 
-    function remove(array, element) {
-        const index = array.indexOf(element);
-        array.splice(index, 1);
-      }
-
     function selection (id, type, name, down) {
         let newCheckList = {...checkList};
         let newHiding = {...hiding};
 
         if (checkList[id] === "") {
 
+            if (!counter.includes(type)) {
+                setCounter([...counter, type]);
+                console.log(counter);
+            }
+        
             newCheckList[id] = "green-border";
             setCheckList(newCheckList);
 
@@ -61,25 +61,20 @@ export default function Container () {
             
             quantity[id] = 1;
 
-            if (!counter.includes(type)) {
-                setCounter([...counter, type]);
-                console.log(counter);
-            }
-            
-
         } else {
             if (quantity[id] === 1 && changeQuantity.called === true) {
                 newCheckList[id] = "";
                 setCheckList(newCheckList);
                 newHiding[id] = "";
                 setHiding(newHiding);
-            }
 
-            setCounter(remove(counter, type));
-            console.log(counter);
+                setCounter(counter.filter(value => value !== type));
+                console.log(counter);
+            }
         }
 
         console.log(type + " " + String(id) + " " + name);
+        testEnd();
     }
 
     const [quantity, SetQuantity] = React.useState(objectOfIds);
@@ -106,25 +101,20 @@ export default function Container () {
         }
     }
 
+    //PASSING CHILD TO PARENT
 
+    let greenButton;
 
-    // let categoriesTypesSelected = {};
-    // for (let i = 0; i < categories.length; i++) {
-    //     categoriesTypesSelected[categories[i].categoryType] = "unmarked";
-    // }
-    // console.log(categoriesTypesSelected);
+    function testEnd () {
+        if (counter.length === categories.length - 1) {
+            greenButton = "green-button";
+            childToParent(greenButton);
+        } else {
+            greenButton = "";
+            childToParent(greenButton);
+        }
 
-    // const [catSelected, setCatSelected] = React.useState(categoriesTypesSelected);
-    // console.log(catSelected);
-
-    // function confirmation (catIndex) {
-    //     let newCatSelected = {...catSelected};
-
-    //     if (catSelected[catIndex] === "unmarked") {
-    //         newCatSelected[catIndex] = "marked";
-    //         setCatSelected(newCatSelected);
-    //     }
-    // }
+    }
 
     return (
         <div class="container">
@@ -153,177 +143,3 @@ export default function Container () {
         </div>
     );
 }
-
-
-    // const [quantity, SetQuantity] = React.useState(1);
-
-    // function changeQuantity (upOrDown, id) {
-
-    //     if (upOrDown === "up") {
-
-    //         SetQuantity(quantity + 1);
-    //     }
-    //     if (upOrDown === "down") {
-
-    //         SetQuantity(quantity - 1);
-    //     }
-    // }
-
-    // const listOfQts = [];
-    // for (let i = 0; i < dishes.length; i++) {
-    //     listOfQts.push(0);
-    //     console.log(listOfQts);
-    // }
-
-    // const [quantity, SetQuantity] = React.useState(listOfQts);
-
-    // function changeQuantity (upOrDown, id) {
-    //     let newQuantity = {...quantity};
-
-    //     if (upOrDown === "up") {
-    //         // if (newQuantity[id] === ) {
-    //         //     newQuantity[id] = "0";
-    //         // }
-    //         newQuantity[id] += 1;
-    //         SetQuantity(newQuantity);
-    //     }
-    //     if (upOrDown === "down") {
-    //         // if (newQuantity[id] === "") {
-    //         //     newQuantity[id] = "0";
-    //         // }
-    //         newQuantity[id] -= 1;
-    //         SetQuantity(newQuantity);
-    //     }
-    // }
-
-
-{/* <div class="content">
-
-<div class="top-content-text">
-    <p class="font-weight-400 font-righteous">Primeiro, seu prato</p>
-</div>
-
-<div class="content-options">
-
-    <div class="option-box main-course" onclick="mainCourse(this)">
-        <img src="imagens/frangoBatata.jpg" />
-        <div class="menu">
-            <p class="name">Frango com batata</p>
-            <p class="description">200g de frango acompanhado de batata</p>
-            <p class="price">R$ 22,70<span><ion-icon name="checkmark-circle" class="check"></ion-icon></span></p>
-        </div>
-    </div>
-    <div class="option-box main-course" onclick="mainCourse(this)">
-        <img src="imagens/peixe.jpg" />
-        <div class="menu">
-            <p class="name">Truta com arroz</p>
-            <p class="description">Truta acompanhada de arroz integral e salada</p>
-            <p class="price">R$ 37,10<span><ion-icon name="checkmark-circle" class="check"></ion-icon></span></p>
-        </div>
-    </div>
-    <div class="option-box main-course" onclick="mainCourse(this)">
-        <img src="imagens/picanha.jpg" />
-        <div class="menu">
-            <p class="name">Picanha e fritas</p>
-            <p class="description">300g de picanha com uma porção de fritas</p>
-            <p class="price">R$ 35,90<span><ion-icon name="checkmark-circle" class="check"></ion-icon></span></p>
-        </div>
-    </div>
-    <div class="option-box main-course" onclick="mainCourse(this)"> 
-        <img src="imagens/estrogonofe-de-carne.jpg" />
-        <div class="menu">
-            <p class="name">Strogonoff de carne</p>
-            <p class="description">Strogonoff com arroz e batata palha</p>
-            <p class="price">R$ 26,95<span><ion-icon name="checkmark-circle" class="check"></ion-icon></span></p>
-        </div>
-    </div>
-
-</div>
-</div>
-
-<div class="content">
-
-<div class="top-content-text">
-    <p class="font-weight-400 font-righteous">Agora, sua bebida</p>
-</div>
-
-<div class="content-options">
-
-    <div class="option-box drinks" onclick="drink(this)">                 
-        <img src="imagens/suco.jpg" />
-        <div class="menu">
-            <p class="name">Suco de laranja</p>
-            <p class="description">Suco natural feito com 7 laranjas maduras</p>
-            <p class="price">R$ 7,55<span><ion-icon name="checkmark-circle" class="check"></ion-icon></span></p>
-        </div>
-    </div>
-    <div class="option-box drinks" onclick="drink(this)">
-        <img src="imagens/mate.jpg" />
-        <div class="menu">                       
-            <p class="name">Mate da casa</p>
-            <p class="description">Mate feito na casa com limão opcional</p>
-            <p class="price">R$ 4,30<span><ion-icon name="checkmark-circle" class="check"></ion-icon></span></p>
-        </div>
-    </div>
-    <div class="option-box drinks" onclick="drink(this)">
-        <img src="imagens/vitamina.jpg" />
-        <div class="menu">                       
-            <p class="name">Vitamina de banana</p>
-            <p class="description">Batida com leite, banana e aveia opcional</p>
-            <p class="price">R$ 6,90<span><ion-icon name="checkmark-circle" class="check"></ion-icon></span></p>
-        </div>
-    </div>
-    <div class="option-box drinks" onclick="drink(this)">
-        <img src="imagens/coca zero.jpg" />
-        <div class="menu">                        
-            <p class="name">Coca cola zero</p>
-            <p class="description">Latinha de coca zero 350ml</p>
-            <p class="price">R$ 3,95<span><ion-icon name="checkmark-circle" class="check"></ion-icon></span></p>
-        </div>
-    </div>
-
-</div>
-</div>
-
-<div class="content">
-
-<div class="top-content-text">
-    <p class="font-weight-400 font-righteous">Por fim, sua sobremesa</p>
-</div>
-
-<div class="content-options">
-    <div class="option-box deserts" onclick="desert(this)">
-        <img src="imagens/brownie.jpg" />
-        <div class="menu">                       
-            <p class="name">Brownie sem açucar</p>
-            <p class="description">Brownie de chocolate feito sem açucar</p>
-            <p class="price">R$ 14,15<span><ion-icon name="checkmark-circle" class="check"></ion-icon></span></p>
-        </div>
-    </div>
-    <div class="option-box deserts" onclick="desert(this)">
-        <img src="imagens/panqueca.jpg" />
-        <div class="menu">                      
-            <p class="name">Panquecas de whey</p>
-            <p class="description">Panquecas feitas com whey, mel e morangos</p>
-            <p class="price">R$ 15,00<span><ion-icon name="checkmark-circle" class="check"></ion-icon></span></p>
-        </div>
-    </div>
-    <div class="option-box deserts" onclick="desert(this)">
-        <img src="imagens/torta.jpg" />
-        <div class="menu">                        
-            <p class="name">Torta de limão</p>
-            <p class="description">Fatia de deliciosa torta de limão</p>
-            <p class="price">R$ 12,80<span><ion-icon name="checkmark-circle" class="check"></ion-icon></span></p>
-        </div>
-    </div>
-    <div class="option-box deserts" onclick="desert(this)">
-        <img src="imagens/pudim.jpg" />
-        <div class="menu">                       
-            <p class="name">Pudim fit</p>
-            <p class="description">Pudim fit feito sem açucar</p>
-            <p class="price">R$ 10,00<span><ion-icon name="checkmark-circle" class="check"></ion-icon></span></p>
-        </div>
-    </div>
-
-</div>
-</div> */}
