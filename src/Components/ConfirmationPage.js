@@ -1,8 +1,14 @@
+import React from "react";
+import {
+    BrowserRouter as Router,
+    Link
+  } from "react-router-dom";
+
 export default function ConfirmationPage () {
+
     return(
         <>
-            <div class="confirmation-box">
-
+            <div class={`confirmation-box appearbox`}>
                 <div class="confirm font-weight-700">
                     <p>Confirme seu pedido</p>
                 </div>
@@ -15,18 +21,18 @@ export default function ConfirmationPage () {
                 </div>
 
                 <div class="buttons">
-                    <button class="button-options alright">
-                        <a class="font-weight-700 link" href="" target="_blanck" onclick="message()">Tudo certo, pode pedir</a>
-                    </button>
-                    
-                    <button class="button-options cancel" onclick="canceling()">
-                        <p class="font-weight-700">Cancelar</p>
-                    </button>
+                    <Router>
+                        <Link class="button-options alright">
+                            <a class="font-weight-700 link" href="" target="_blanck" onclick="message()">Tudo certo, pode pedir</a>
+                        </Link>
+                        <Link to="" class="button-options cancel" target="_blanck">
+                            <p class="font-weight-700">Cancelar</p>
+                        </Link>
+                    </Router>
                 </div>
-
             </div>
 
-            <div class="transparent-background appearback"></div>
+            <div class={`transparent-background appearback`}></div>
         </>
     );
 }
