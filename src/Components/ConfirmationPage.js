@@ -28,6 +28,17 @@ export default function ConfirmationPage () {
 
     calculateTotal();
 
+    let text;
+
+    const sendMessage = () => {
+        text = "https://wa.me/5521972966098?text=" + encodeURIComponent(
+            `Olá, gostaria de fazer o pedido: ${renderingChoices.map(choice => `\n- ${choice[0]}: ${choice[1]}x`)}\nTotal: R$ ${total}`
+            );
+    }
+
+    sendMessage();
+
+
     return(
         <>
             <div class={`confirmation-box appearbox`}>
@@ -46,9 +57,9 @@ export default function ConfirmationPage () {
 
                 <div class="buttons">
                     <Router>
-                        <Link class="button-options alright">
-                            <a class="font-weight-700 link" href="" target="_blanck" onclick="message()">Tudo certo, pode pedir</a>
-                        </Link>
+                        <button class="button-options alright">
+                            <a class="font-weight-700 link" href={text} target="_blanck" onclick="message()">Tudo certo, pode pedir</a>
+                        </button>
                         <Link to="/" class="button-options cancel" target="_top">
                             <p class="font-weight-700">Cancelar</p>
                         </Link>
