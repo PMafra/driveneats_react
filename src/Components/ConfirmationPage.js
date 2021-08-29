@@ -1,10 +1,12 @@
 import React from "react";
 import {
     BrowserRouter as Router,
-    Link
+    Link,
   } from "react-router-dom";
 
-export default function ConfirmationPage () {
+export default function ConfirmationPage ({displayChoices}) {
+
+    //const { displayChoices } = Location.state || {};
 
     return(
         <>
@@ -14,9 +16,7 @@ export default function ConfirmationPage () {
                 </div>
 
                 <div class="choices font-weight-400">
-                    <div class="choice"><p class="food">Minha comida</p><p class="foodPrice">PRECO</p></div>
-                    <div class="choice"><p class="soda">Minha bebida</p><p class="sodaPrice">PRECO</p></div>
-                    <div class="choice"><p class="candy">Minha sobremesa</p><p class="candyPrice">PRECO</p></div>
+                    <div class="choice"><p class="food">{displayChoices}</p><p class="foodPrice">PRECO</p></div>
                     <div class="choice font-weight-700"><p>TOTAL</p><p class="totalPrice">TOTAL</p></div>
                 </div>
 

@@ -12,7 +12,7 @@ import {
   } from "react-router-dom";
 
 
-export default function App ({markedCats}) {
+export default function App ({markedCats, dishesChosen}) {
 
     const [buttonData, setButtonData] = React.useState('');
     const childToParent = (childData) => {
@@ -20,21 +20,28 @@ export default function App ({markedCats}) {
     }
     console.log(buttonData);
 
-    const [dishesData, setDishesData] = React.useState('');
+    const [dishesData, setDishesData] = React.useState();
     const sonToParent = (childData) => {
-        setDishesData(childData);
+
+        let diffDisplayChoices = childData.filter(function(val, i, arr) { 
+            return arr.indexOf(val) === i;
+        });
+
+        setDishesData(diffDisplayChoices);
     }
     console.log(dishesData);
+
+
 
     return (
         <>
             <TopBar />
-            <Container childToParent={childToParent} sonToParent={sonToParent} markedCats={markedCats}/>
+            <Container childToParent={childToParent} sonToParent={sonToParent} markedCats={markedCats} dishesChosen={dishesChosen}/>
             <BottomBar changeColor={buttonData} />
             <Router>
                 <Switch>
                     <Route exact path="/confirmation-page">
-                        <ConfirmationPage />
+                        <ConfirmationPage displayChoices={dishesData}/>
                     </Route>
                 </Switch>
             </Router>

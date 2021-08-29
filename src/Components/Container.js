@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function Container ({childToParent, sonToParent, markedCats}) {
+export default function Container ({childToParent, sonToParent, markedCats, dishesChosen}) {
 
     const categories = [
         {categoryTitle: "Primeiro, seu prato", categoryType: "main-course"},
@@ -40,7 +40,7 @@ export default function Container ({childToParent, sonToParent, markedCats}) {
 
     const [hiding, setHiding] = React.useState(objectOfIds);
     
-    function selection (id, type, catId) {
+    function selection (id, type, catId, name) {
         let newCheckList = {...checkList};
         let newHiding = {...hiding};
 
@@ -57,6 +57,9 @@ export default function Container ({childToParent, sonToParent, markedCats}) {
             markedCats.push(catId);
             console.log(markedCats);
 
+            dishesChosen.push(name);
+            console.log(dishesChosen);
+
 
         } else {
             if (quantity[id] === 1 && changeQuantity.called === true) {
@@ -71,11 +74,12 @@ export default function Container ({childToParent, sonToParent, markedCats}) {
         }
 
         testEnd();
+        sonToParent([...dishesChosen]);
     }
 
     const [quantity, SetQuantity] = React.useState(objectOfIds);
 
-    function changeQuantity (upOrDown, id) {
+    function changeQuantity (upOrDown, id, name) {
         let newQuantity = {...quantity};
 
         if (upOrDown === "up") {
@@ -84,17 +88,26 @@ export default function Container ({childToParent, sonToParent, markedCats}) {
             }
             newQuantity[id] += 1;
             SetQuantity(newQuantity);
+
+            dishesChosen.push(name);
+            console.log(dishesChosen);
         }
         if (upOrDown === "down") {
             changeQuantity.called = true;
             if (newQuantity[id] === "") {
-            newQuantity[id] = 1;
+                newQuantity[id] = 1;
             }
             if (quantity[id] > 1) {
                 newQuantity[id] -= 1;
                 SetQuantity(newQuantity);
             }
+
+            dishesChosen.splice(dishesChosen.findIndex(a => a === name), 1);
+            console.log(dishesChosen);
+            console.log(name);
         }
+
+        sonToParent([...dishesChosen]);
     }
 
     //PASSING CHILD TO PARENT
@@ -127,12 +140,12 @@ export default function Container ({childToParent, sonToParent, markedCats}) {
                     <div class="content-options">
                         {dishes.map((dish, dishIndex) => 
                             dish.type === category.categoryType ? (
-                                <div class={`option-box ${dish.type} ${checkList[dishIndex]}`} key={`d${dishIndex}`} onClick={() => selection(dishIndex, dish.type, catIndex)}>
+                                <div class={`option-box ${dish.type} ${checkList[dishIndex]}`} key={`d${dishIndex}`} onClick={() => selection(dishIndex, dish.type, catIndex, dish.name)}>
                                     <img src={`imagens/${dish.srcId}.jpg`} />
                                     <div class="menu">
                                         <p class="name">{dish.name}</p>
                                         <p class="description">{dish.description}</p>
-                                        <p class="price">{dish.price}<span class={`vanish ${hiding[dishIndex]}`}><ion-icon name="add-circle" class="check green" onClick={() => changeQuantity("up", dishIndex)}></ion-icon>{quantity[dishIndex]}<ion-icon name="remove-circle" class="check red" onClick={() => changeQuantity("down", dishIndex)}></ion-icon></span></p>
+                                        <p class="price">{dish.price}<span class={`vanish ${hiding[dishIndex]}`}><ion-icon name="add-circle" class="check green" onClick={() => changeQuantity("up", dishIndex, dish.name)}></ion-icon>{quantity[dishIndex]}<ion-icon name="remove-circle" class="check red" onClick={() => changeQuantity("down", dishIndex, dish.name)}></ion-icon></span></p>
                                     </div>
                                 </div>
                             )
