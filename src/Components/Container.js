@@ -27,9 +27,11 @@ export default function Container ({childToParent, sonToParent, markedCats, dish
         {type: categoriesTypes.deserts, srcId: "panqueca", name: "Panquecas de whey", description: "Panquecas feitas com whey, mel e morangos", price: "15,00"},
         {type: categoriesTypes.deserts, srcId: "torta", name: "Torta de limão", description: "Fatia de deliciosa torta de limão", price: "12,80"},
         {type: categoriesTypes.deserts, srcId: "pudim", name: "Pudim fit", description: "Pudim fit feito sem açucar", price: "10,00"},
-        {type: categoriesTypes.teste, srcId: "pudim", name: "Deu certo!", description: "Pudim fit feito sem açucar", price: "100000,00"},
-        {type: categoriesTypes.teste, srcId: "panqueca", name: "Deu certo demais!", description: "Panquecas feitas com whey, mel e morangos", price: "150000,00"}
+        {type: categoriesTypes.teste, srcId: "pudim", name: "Deu certo!", description: "Pudim fit feito sem açucar", price: "10,00"},
+        {type: categoriesTypes.teste, srcId: "panqueca", name: "Deu certo demais!", description: "Panquecas feitas com whey, mel e morangos", price: "15,00"}
     ]
+
+    localStorage.setItem(2, JSON.stringify(dishes));
 
     const objectOfIds = {};
     for (let i = 0; i < dishes.length; i++) {

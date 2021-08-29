@@ -20,28 +20,28 @@ export default function App ({markedCats, dishesChosen}) {
     }
     console.log(buttonData);
 
-    const [dishesData, setDishesData] = React.useState();
+    const [dishesData, setDishesData] = React.useState([]);
     const sonToParent = (childData) => {
-
-        let diffDisplayChoices = childData.filter(function(val, i, arr) { 
-            return arr.indexOf(val) === i;
-        });
-
-        setDishesData(diffDisplayChoices);
+        setDishesData(childData);
     }
     console.log(dishesData);
 
-
+    if (dishesData[0] !== undefined) {
+        localStorage.setItem(1, JSON.stringify(dishesData));
+    }
 
     return (
         <>
-            <TopBar />
-            <Container childToParent={childToParent} sonToParent={sonToParent} markedCats={markedCats} dishesChosen={dishesChosen}/>
-            <BottomBar changeColor={buttonData} />
             <Router>
                 <Switch>
-                    <Route exact path="/confirmation-page">
-                        <ConfirmationPage displayChoices={dishesData}/>
+                    <Route exact path="/" >
+                        <TopBar />
+                        <Container childToParent={childToParent} sonToParent={sonToParent} markedCats={markedCats} dishesChosen={dishesChosen}/>
+                        <BottomBar changeColor={buttonData} />
+                    </Route>
+                    
+                    <Route exact path="/ConfirmationPage">
+                        <ConfirmationPage />
                     </Route>
                 </Switch>
             </Router>

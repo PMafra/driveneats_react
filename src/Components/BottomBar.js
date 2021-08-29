@@ -1,7 +1,7 @@
 import React from "react";
 import {
     BrowserRouter as Router,
-    Link
+    Link,
   } from "react-router-dom";
 
 export default function BottomBar ({changeColor}) {
@@ -16,7 +16,7 @@ export default function BottomBar ({changeColor}) {
     return (
         <div class="bottom-bar">
             <Router>
-                <Link to="/confirmation-page" class={`bottom-bar-button ${changeColor} ${changeColor === "" ? "disabled-link" : ""}`} target="_blanck">
+                <Link to="/ConfirmationPage" class={`bottom-bar-button ${changeColor} ${changeColor === "" ? "disabled-link" : ""}`} target="_top" >
                     <p class="font-weight-400">{buttonMessage}</p>
                 </Link>
             </Router>
