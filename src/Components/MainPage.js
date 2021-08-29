@@ -9,29 +9,24 @@ export default function MainPage ({childToParent, sonToParent, markedCats, dishe
         {categoryTitle: "Apenas um teste de adicionar categorias e pratos novos", categoryType: "teste"}
     ];
 
-    let categoriesTypes = {};
-    for (let i = 0; i < categories.length; i++) {
-        categoriesTypes[categories[i].categoryType.replace("-","")] = categories[i].categoryType;
-    }
-
     const dishes = [
-        {type: categoriesTypes.maincourse, srcId: "frangoBatata", name: "Frango com batata", description: "200g de frango acompanhado de batata", price: "22,70"},
-        {type: categoriesTypes.maincourse, srcId: "peixe", name: "Truta com arroz", description: "Truta acompanhada de arroz integral e salada", price: "37,10"},
-        {type: categoriesTypes.maincourse, srcId: "picanha", name: "Picanha e fritas", description: "300g de picanha com uma porção de fritas", price: "35,90"},
-        {type: categoriesTypes.maincourse, srcId: "estrogonofe-de-carne", name: "Strogonoff de carne", description: "Strogonoff com arroz e batata palha", price: "26,95"},
-        {type: categoriesTypes.drinks, srcId: "suco", name: "Suco de laranja", description: "Suco natural feito com 7 laranjas maduras", price: "7,55"},
-        {type: categoriesTypes.drinks, srcId: "mate", name: "Mate da casa", description: "Mate feito na casa com limão opcional", price: "4,30"},
-        {type: categoriesTypes.drinks, srcId: "vitamina", name: "Vitamina de banana", description: "Batida com leite, banana e aveia opcional", price: "6,90"},
-        {type: categoriesTypes.drinks, srcId: "coca zero", name: "Coca cola zero", description: "Latinha de coca zero 350ml", price: "3,95"},
-        {type: categoriesTypes.deserts, srcId: "brownie", name: "Brownie sem açucar", description: "Brownie de chocolate feito sem açucar", price: "14,15"},
-        {type: categoriesTypes.deserts, srcId: "panqueca", name: "Panquecas de whey", description: "Panquecas feitas com whey, mel e morangos", price: "15,00"},
-        {type: categoriesTypes.deserts, srcId: "torta", name: "Torta de limão", description: "Fatia de deliciosa torta de limão", price: "12,80"},
-        {type: categoriesTypes.deserts, srcId: "pudim", name: "Pudim fit", description: "Pudim fit feito sem açucar", price: "10,00"},
-        {type: categoriesTypes.teste, srcId: "pudim", name: "Deu certo!", description: "Pudim fit feito sem açucar", price: "10,00"},
-        {type: categoriesTypes.teste, srcId: "panqueca", name: "Deu certo demais!", description: "Panquecas feitas com whey, mel e morangos", price: "15,00"}
+        {type: "main-course", srcId: "frangoBatata", name: "Frango com batata", description: "200g de frango acompanhado de batata", price: "22,70"},
+        {type: "main-course", srcId: "peixe", name: "Truta com arroz", description: "Truta acompanhada de arroz integral e salada", price: "37,10"},
+        {type: "main-course", srcId: "picanha", name: "Picanha e fritas", description: "300g de picanha com uma porção de fritas", price: "35,90"},
+        {type: "main-course", srcId: "estrogonofe-de-carne", name: "Strogonoff de carne", description: "Strogonoff com arroz e batata palha", price: "26,95"},
+        {type: "drinks", srcId: "suco", name: "Suco de laranja", description: "Suco natural feito com 7 laranjas maduras", price: "7,55"},
+        {type: "drinks", srcId: "mate", name: "Mate da casa", description: "Mate feito na casa com limão opcional", price: "4,30"},
+        {type: "drinks", srcId: "vitamina", name: "Vitamina de banana", description: "Batida com leite, banana e aveia opcional", price: "6,90"},
+        {type: "drinks", srcId: "coca zero", name: "Coca cola zero", description: "Latinha de coca zero 350ml", price: "3,95"},
+        {type: "deserts", srcId: "brownie", name: "Brownie sem açucar", description: "Brownie de chocolate feito sem açucar", price: "14,15"},
+        {type: "deserts", srcId: "panqueca", name: "Panquecas de whey", description: "Panquecas feitas com whey, mel e morangos", price: "15,00"},
+        {type: "deserts", srcId: "torta", name: "Torta de limão", description: "Fatia de deliciosa torta de limão", price: "12,80"},
+        {type: "deserts", srcId: "pudim", name: "Pudim fit", description: "Pudim fit feito sem açucar", price: "10,00"},
+        {type: "teste", srcId: "pudim", name: "Deu certo!", description: "Pudim fit feito sem açucar", price: "10,00"},
+        {type: "teste", srcId: "panqueca", name: "Deu certo demais!", description: "Panquecas feitas com whey, mel e morangos", price: "15,00"}
     ]
 
-    localStorage.setItem(2, JSON.stringify(dishes));
+    localStorage.setItem("all-dishes-data", JSON.stringify(dishes));
 
     const objectOfIds = {};
     for (let i = 0; i < dishes.length; i++) {

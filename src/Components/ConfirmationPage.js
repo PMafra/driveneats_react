@@ -6,10 +6,10 @@ import {
 
 export default function ConfirmationPage () {
 
-    const allFoods = JSON.parse(localStorage.getItem(2));
+    const allFoods = JSON.parse(localStorage.getItem("all-dishes-data"));
     console.log(allFoods);
 
-    const displayChoices = JSON.parse(localStorage.getItem(1));
+    const displayChoices = JSON.parse(localStorage.getItem("dishes-picked"));
 
     let userChoicesData = {};
     displayChoices.forEach(function(i) { userChoicesData[i] = (userChoicesData[i]||0) + 1;});

@@ -27,7 +27,7 @@ export default function App ({markedCats, dishesChosen}) {
     console.log(dishesData);
 
     if (dishesData[0] !== undefined) {
-        localStorage.setItem(1, JSON.stringify(dishesData));
+        localStorage.setItem("dishes-picked", JSON.stringify(dishesData));
     }
 
     return (
