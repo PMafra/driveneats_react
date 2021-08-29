@@ -3,7 +3,8 @@ import TopBar from "./Components/TopBar";
 import Container from "./Components/Container";
 import BottomBar from "./Components/BottomBar";
 import ConfirmationPage from "./Components/ConfirmationPage";
-import "./style.css";
+import "./css/style.css";
+import "./css/reset.css";
 import {
     BrowserRouter as Router,
     Route,
@@ -13,17 +14,23 @@ import {
 
 export default function App ({markedCats}) {
 
-    const [data, setData] = React.useState('');
+    const [buttonData, setButtonData] = React.useState('');
     const childToParent = (childData) => {
-        setData(childData);
+        setButtonData(childData);
     }
-    console.log(data);
+    console.log(buttonData);
+
+    const [dishesData, setDishesData] = React.useState('');
+    const sonToParent = (childData) => {
+        setDishesData(childData);
+    }
+    console.log(dishesData);
 
     return (
         <>
             <TopBar />
-            <Container childToParent={childToParent} markedCats={markedCats}/>
-            <BottomBar changeColor={data} />
+            <Container childToParent={childToParent} sonToParent={sonToParent} markedCats={markedCats}/>
+            <BottomBar changeColor={buttonData} />
             <Router>
                 <Switch>
                     <Route exact path="/confirmation-page">

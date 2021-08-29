@@ -288,6 +288,7 @@ body {
 
 .alright {
     background-color: #ffffff;
+    text-decoration: none;
 }
 
 .alright a {
@@ -307,6 +308,7 @@ body {
     font-size: 20px;
     color: #FFFFFF;
     background-color: #50D074;
+    text-decoration: none;
 }
 
 .disabled-link {

@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function Container ({childToParent, markedCats}) {
+export default function Container ({childToParent, sonToParent, markedCats}) {
 
     const categories = [
         {categoryTitle: "Primeiro, seu prato", categoryType: "main-course"},
