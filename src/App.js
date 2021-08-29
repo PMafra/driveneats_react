@@ -1,6 +1,6 @@
 import React from "react";
 import TopBar from "./Components/TopBar";
-import Container from "./Components/Container";
+import MainPage from "./Components/MainPage";
 import BottomBar from "./Components/BottomBar";
 import ConfirmationPage from "./Components/ConfirmationPage";
 import "./css/style.css";
@@ -36,7 +36,7 @@ export default function App ({markedCats, dishesChosen}) {
                 <Switch>
                     <Route exact path="/" >
                         <TopBar />
-                        <Container childToParent={childToParent} sonToParent={sonToParent} markedCats={markedCats} dishesChosen={dishesChosen}/>
+                        <MainPage childToParent={childToParent} sonToParent={sonToParent} markedCats={markedCats} dishesChosen={dishesChosen}/>
                         <BottomBar changeColor={buttonData} />
                     </Route>
                     

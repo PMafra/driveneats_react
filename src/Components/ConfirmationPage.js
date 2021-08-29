@@ -28,16 +28,40 @@ export default function ConfirmationPage () {
 
     calculateTotal();
 
-    let text;
+    let whatsWebUrl;
+    let finalData;
+    let userName;
+    let userAdress;
 
-    const sendMessage = () => {
-        text = "https://wa.me/5521972966098?text=" + encodeURIComponent(
-            `Olá, gostaria de fazer o pedido: ${renderingChoices.map(choice => `\n- ${choice[0]}: ${choice[1]}x`)}\nTotal: R$ ${total}`
-            );
+    const createMessage = () => {
+
+        switch (true) {
+            case ((userName === "" && userAdress === "") || (userName === null && userAdress === null) || (userName === null && userAdress === "") || (userName === "" && userAdress === null)) :
+                finalData = "";
+                break;
+            case (userName === "" || userName === null) :
+                finalData = `\n\nEndereço: ${userAdress}`;
+                break;
+            case (userAdress === "" || userAdress === null) :
+                finalData = `\n\nNome: ${userName}`;
+                break;
+            default :
+                finalData = `\n\nNome: ${userName}\nEndereço: ${userAdress}`;
+        }
+
+        whatsWebUrl = "https://wa.me/5521972966098?text=" 
+            + encodeURIComponent(
+                `Olá, gostaria de fazer o pedido: ${renderingChoices.map(choice => `\n- ${choice[0]}: ${choice[1]}x`)}\nTotal: R$ ${total}${finalData}`
+                );
     }
 
-    sendMessage();
-
+    const askingForUserInfo = () => {
+        userName = prompt("Qual o seu nome?");
+        userAdress = prompt("Qual o seu endereço?");
+        createMessage();
+        
+        window.open(whatsWebUrl, "_blank") || window.location.replace(whatsWebUrl);    
+    }
 
     return(
         <>
@@ -58,7 +82,7 @@ export default function ConfirmationPage () {
                 <div class="buttons">
                     <Router>
                         <button class="button-options alright">
-                            <a class="font-weight-700 link" href={text} target="_blanck" onclick="message()">Tudo certo, pode pedir</a>
+                            <a onClick={askingForUserInfo} class="font-weight-700 link" href={whatsWebUrl} target="_blanck" onclick="message()">Tudo certo, pode pedir</a>
                         </button>
                         <Link to="/" class="button-options cancel" target="_top">
                             <p class="font-weight-700">Cancelar</p>
