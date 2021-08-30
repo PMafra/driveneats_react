@@ -23,7 +23,7 @@ export default function MainPage ({childToParent, sonToParent, markedCats, dishe
         {type: "deserts", srcId: "torta", name: "Torta de limão", description: "Fatia de deliciosa torta de limão", price: "12,80"},
         {type: "deserts", srcId: "pudim", name: "Pudim fit", description: "Pudim fit feito sem açucar", price: "10,00"},
         {type: "teste", srcId: "pudim", name: "Deu certo!", description: "Pudim fit feito sem açucar", price: "10,00"},
-        {type: "teste", srcId: "panqueca", name: "Deu certo demais!", description: "Panquecas feitas com whey, mel e morangos", price: "15,00"}
+        {type: "teste", srcId: "pe-de-galinha", name: "Deu certo demais!", description: "Panquecas feitas com whey, mel e morangos", price: "15,00"}
     ]
 
     localStorage.setItem("all-dishes-data", JSON.stringify(dishes));
