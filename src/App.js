@@ -11,20 +11,17 @@ import {
     Switch
   } from "react-router-dom";
 
-
 export default function App ({markedCats, dishesChosen}) {
 
     const [buttonData, setButtonData] = React.useState('');
     const childToParent = (childData) => {
         setButtonData(childData);
     }
-    console.log(buttonData);
 
     const [dishesData, setDishesData] = React.useState([]);
     const sonToParent = (childData) => {
         setDishesData(childData);
     }
-    console.log(dishesData);
 
     if (dishesData[0] !== undefined) {
         localStorage.setItem("dishes-picked", JSON.stringify(dishesData));

@@ -26,55 +26,31 @@ export default function MainPage ({childToParent, sonToParent, markedCats, dishe
         {type: "teste", srcId: "pe-de-galinha", name: "Deu certo demais!", description: "Panquecas feitas com whey, mel e morangos", price: "15,00"}
     ]
 
-    localStorage.setItem("all-dishes-data", JSON.stringify(dishes));
-
     const objectOfIds = {};
     for (let i = 0; i < dishes.length; i++) {
         objectOfIds[i] = "";
     }
-
-    const [checkList, setCheckList] = React.useState(objectOfIds);
-
-    const [hiding, setHiding] = React.useState(objectOfIds);
     
-    function selection (id, type, catId, name) {
-        let newCheckList = {...checkList};
-        let newHiding = {...hiding};
-
-        if (checkList[id] === "") {
-        
-            newCheckList[id] = "green-border";
-            setCheckList(newCheckList);
-
-            newHiding[id] = "re-vanish";
-            setHiding(newHiding);
-            
-            quantity[id] = 1;
-
-            markedCats.push(catId);
-            console.log(markedCats);
-
-            dishesChosen.push(name);
-            console.log(dishesChosen);
-
-
-        } else {
-            if (quantity[id] === 1 && changeQuantity.called === true) {
-                newCheckList[id] = "";
-                setCheckList(newCheckList);
-                newHiding[id] = "";
-                setHiding(newHiding);
-
-                markedCats.splice(markedCats.findIndex(a => a === catId), 1);
-                console.log(markedCats);
-            }
-        }
-
-        testEnd();
-        sonToParent([...dishesChosen]);
-    }
-
+    const [checkList, setCheckList] = React.useState(objectOfIds);
+    const [counterHiding, setCounterHiding] = React.useState(objectOfIds);
     const [quantity, SetQuantity] = React.useState(objectOfIds);
+    let greenButton;
+
+    localStorage.setItem("all-dishes-data", JSON.stringify(dishes));
+
+    function testEnd () {
+        let diffMarkedCatsLength = markedCats.filter(function(val, i, arr) { 
+            return arr.indexOf(val) === i;
+        }).length;
+
+        if (diffMarkedCatsLength === categories.length) {
+            greenButton = "green-button";
+            childToParent(greenButton);
+        } else {
+            greenButton = "";
+            childToParent(greenButton);
+        }
+    }
 
     function changeQuantity (upOrDown, id, name) {
         let newQuantity = {...quantity};
@@ -87,7 +63,6 @@ export default function MainPage ({childToParent, sonToParent, markedCats, dishe
             SetQuantity(newQuantity);
 
             dishesChosen.push(name);
-            console.log(dishesChosen);
         }
         if (upOrDown === "down") {
             changeQuantity.called = true;
@@ -100,31 +75,39 @@ export default function MainPage ({childToParent, sonToParent, markedCats, dishe
             }
 
             dishesChosen.splice(dishesChosen.findIndex(a => a === name), 1);
-            console.log(dishesChosen);
-            console.log(name);
         }
 
         sonToParent([...dishesChosen]);
     }
+    
+    function selection (id, catId, name) {
+        let newCheckList = {...checkList};
+        let newCounterHiding = {...counterHiding};
 
-    //PASSING CHILD TO PARENT
+        if (checkList[id] === "") {
+            newCheckList[id] = "green-border";
+            setCheckList(newCheckList);
+            newCounterHiding[id] = "re-vanish";
+            setCounterHiding(newCounterHiding);
+            
+            quantity[id] = 1;
 
-    let greenButton;
+            markedCats.push(catId);
+            dishesChosen.push(name);
 
-    function testEnd () {
-        let diffMarkedCatsLength = markedCats.filter(function(val, i, arr) { 
-            return arr.indexOf(val) === i;
-        }).length;
-        console.log(diffMarkedCatsLength);
-
-        if (diffMarkedCatsLength === categories.length) {
-            console.log(markedCats);
-            greenButton = "green-button";
-            childToParent(greenButton);
         } else {
-            greenButton = "";
-            childToParent(greenButton);
+            if (quantity[id] === 1 && changeQuantity.called === true) {
+                newCheckList[id] = "";
+                setCheckList(newCheckList);
+                newCounterHiding[id] = "";
+                setCounterHiding(newCounterHiding);
+
+                markedCats.splice(markedCats.findIndex(a => a === catId), 1);
+            }
         }
+
+        testEnd();
+        sonToParent([...dishesChosen]);
     }
 
     return (
@@ -137,12 +120,12 @@ export default function MainPage ({childToParent, sonToParent, markedCats, dishe
                     <div class="content-options">
                         {dishes.map((dish, dishIndex) => 
                             dish.type === category.categoryType ? (
-                                <div class={`option-box ${dish.type} ${checkList[dishIndex]}`} key={`d${dishIndex}`} onClick={() => selection(dishIndex, dish.type, catIndex, dish.name)}>
+                                <div class={`option-box ${dish.type} ${checkList[dishIndex]}`} key={`d${dishIndex}`} onClick={() => selection(dishIndex, catIndex, dish.name)}>
                                     <img src={`imagens/${dish.srcId}.jpg`} />
                                     <div class="menu">
                                         <p class="name">{dish.name}</p>
                                         <p class="description">{dish.description}</p>
-                                        <p class="price">{dish.price}<span class={`vanish ${hiding[dishIndex]}`}><ion-icon name="add-circle" class="check green" onClick={() => changeQuantity("up", dishIndex, dish.name)}></ion-icon>{quantity[dishIndex]}<ion-icon name="remove-circle" class="check red" onClick={() => changeQuantity("down", dishIndex, dish.name)}></ion-icon></span></p>
+                                        <p class="price">{dish.price}<span class={`vanish ${counterHiding[dishIndex]}`}><ion-icon name="add-circle" class="check green" onClick={() => changeQuantity("up", dishIndex, dish.name)}></ion-icon>{quantity[dishIndex]}<ion-icon name="remove-circle" class="check red" onClick={() => changeQuantity("down", dishIndex, dish.name)}></ion-icon></span></p>
                                     </div>
                                 </div>
                             )

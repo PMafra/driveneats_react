@@ -7,17 +7,17 @@ import {
 export default function ConfirmationPage () {
 
     const allFoods = JSON.parse(localStorage.getItem("all-dishes-data"));
-    console.log(allFoods);
-
     const displayChoices = JSON.parse(localStorage.getItem("dishes-picked"));
 
     let userChoicesData = {};
-    displayChoices.forEach(function(i) { userChoicesData[i] = (userChoicesData[i]||0) + 1;});
-
+    displayChoices.forEach(function(i) {userChoicesData[i] = (userChoicesData[i]||0) + 1;});
     let renderingChoices = Object.entries(userChoicesData);
-    console.log(renderingChoices);
 
     let total = 0;
+    let whatsWebUrl;
+    let finalData;
+    let userName;
+    let userAdress;
 
     const calculateTotal = () => {
         renderingChoices.forEach(choice => allFoods.forEach(food => food.name === choice[0] ? 
@@ -28,13 +28,7 @@ export default function ConfirmationPage () {
 
     calculateTotal();
 
-    let whatsWebUrl;
-    let finalData;
-    let userName;
-    let userAdress;
-
     const createMessage = () => {
-
         switch (true) {
             case ((userName === "" && userAdress === "") || (userName === null && userAdress === null) || (userName === null && userAdress === "") || (userName === "" && userAdress === null)) :
                 finalData = "";
@@ -65,20 +59,17 @@ export default function ConfirmationPage () {
 
     return(
         <>
-            <div class={`confirmation-box appearbox`}>
+            <div class="confirmation-box">
                 <div class="confirm font-weight-700">
                     <p>Confirme seu pedido</p>
                 </div>
-
                 <div class="choices font-weight-400">
-
                     {renderingChoices.map(choice => (
-                        <div class="choice"><p class="food">{choice[0]}</p><p class="foodPrice">{allFoods.map(value => value.name === choice[0] ? `(${choice[1]}x) ${value.price}` : "")}</p></div>
-                    ))}
-                    
+                        <div class="choice">
+                            <p class="food">{choice[0]}</p><p class="foodPrice">{allFoods.map(value => value.name === choice[0] ? `(${choice[1]}x) ${value.price}` : "")}</p>
+                        </div>))}
                     <div class="choice font-weight-700"><p>TOTAL</p><p class="totalPrice">{total}</p></div>
                 </div>
-
                 <div class="buttons">
                     <Router>
                         <button class="button-options alright">
@@ -90,8 +81,6 @@ export default function ConfirmationPage () {
                     </Router>
                 </div>
             </div>
-
-            <div class={`transparent-background appearback`}></div>
         </>
     );
 }

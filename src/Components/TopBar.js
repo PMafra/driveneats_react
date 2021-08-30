@@ -1,4 +1,9 @@
 export default function TopBar () {
+    
+    const refresh = () => {
+        window.location.reload();
+    }
+
     return (
         <div class="top-bar">
             <div class="top-bar-content">
@@ -7,8 +12,4 @@ export default function TopBar () {
             </div>
         </div>
     );
-}
-
-const refresh = () => {
-    window.location.reload();
 }
